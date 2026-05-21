@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutRouteImport } from './routes/workout'
 import { Route as StatsRouteImport } from './routes/stats'
 import { Route as RecoveryRouteImport } from './routes/recovery'
+import { Route as QuickRouteImport } from './routes/quick'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LibraryRouteImport } from './routes/library'
@@ -31,6 +32,11 @@ const StatsRoute = StatsRouteImport.update({
 const RecoveryRoute = RecoveryRouteImport.update({
   id: '/recovery',
   path: '/recovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuickRoute = QuickRouteImport.update({
+  id: '/quick',
+  path: '/quick',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/library': typeof LibraryRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/quick': typeof QuickRoute
   '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/library': typeof LibraryRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/quick': typeof QuickRoute
   '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/library': typeof LibraryRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/quick': typeof QuickRoute
   '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/library'
     | '/onboarding'
     | '/profile'
+    | '/quick'
     | '/recovery'
     | '/stats'
     | '/workout'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/library'
     | '/onboarding'
     | '/profile'
+    | '/quick'
     | '/recovery'
     | '/stats'
     | '/workout'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/library'
     | '/onboarding'
     | '/profile'
+    | '/quick'
     | '/recovery'
     | '/stats'
     | '/workout'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   LibraryRoute: typeof LibraryRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
+  QuickRoute: typeof QuickRoute
   RecoveryRoute: typeof RecoveryRoute
   StatsRoute: typeof StatsRoute
   WorkoutRoute: typeof WorkoutRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/recovery'
       fullPath: '/recovery'
       preLoaderRoute: typeof RecoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quick': {
+      id: '/quick'
+      path: '/quick'
+      fullPath: '/quick'
+      preLoaderRoute: typeof QuickRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   LibraryRoute: LibraryRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
+  QuickRoute: QuickRoute,
   RecoveryRoute: RecoveryRoute,
   StatsRoute: StatsRoute,
   WorkoutRoute: WorkoutRoute,
