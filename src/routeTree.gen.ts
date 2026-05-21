@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutRouteImport } from './routes/workout'
 import { Route as StatsRouteImport } from './routes/stats'
+import { Route as RecoveryRouteImport } from './routes/recovery'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as CheckinRouteImport } from './routes/checkin'
@@ -24,6 +25,11 @@ const WorkoutRoute = WorkoutRouteImport.update({
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
   path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecoveryRoute = RecoveryRouteImport.update({
+  id: '/recovery',
+  path: '/recovery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/checkin': typeof CheckinRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/checkin': typeof CheckinRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/checkin': typeof CheckinRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recovery': typeof RecoveryRoute
   '/stats': typeof StatsRoute
   '/workout': typeof WorkoutRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/checkin'
     | '/onboarding'
     | '/profile'
+    | '/recovery'
     | '/stats'
     | '/workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/checkin' | '/onboarding' | '/profile' | '/stats' | '/workout'
+  to:
+    | '/'
+    | '/checkin'
+    | '/onboarding'
+    | '/profile'
+    | '/recovery'
+    | '/stats'
+    | '/workout'
   id:
     | '__root__'
     | '/'
     | '/checkin'
     | '/onboarding'
     | '/profile'
+    | '/recovery'
     | '/stats'
     | '/workout'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   CheckinRoute: typeof CheckinRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
+  RecoveryRoute: typeof RecoveryRoute
   StatsRoute: typeof StatsRoute
   WorkoutRoute: typeof WorkoutRoute
 }
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/stats'
       fullPath: '/stats'
       preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recovery': {
+      id: '/recovery'
+      path: '/recovery'
+      fullPath: '/recovery'
+      preLoaderRoute: typeof RecoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -154,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckinRoute: CheckinRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
+  RecoveryRoute: RecoveryRoute,
   StatsRoute: StatsRoute,
   WorkoutRoute: WorkoutRoute,
 }
